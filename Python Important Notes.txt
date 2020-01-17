@@ -1,0 +1,9 @@
+PYTHON (v3.7 stable for RIDE)
+C:\Users\Janielle Gregorio\AppData\Local\Programs\Python\Python37\Scripts
+C:\Users\Janielle Gregorio\AppData\Local\Programs\Python\Python37\Lib\site-packages
+
+python -m pip install robotframework
+python -m pip install robotframework-ride
+python -m pip show WxPython
+ride.py
+python -m pip install --upgrade robotframework-seleniumlibrary
