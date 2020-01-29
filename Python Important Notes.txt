@@ -7,3 +7,98 @@ python -m pip install robotframework-ride
 python -m pip show WxPython
 ride.py
 python -m pip install --upgrade robotframework-seleniumlibrary
+
+*********************************************************************************************************
+
+API Automation Testing using Robot Framework in Python
+1. Download Python
+2. Download PyCharm IDE Community version.
+3. Install below libraries through CMD/
+robot framework
+requests
+robotframework-requests
+robotframework-jsonlibrary
+4. Type the following commands (install, install --upgrade, uninstall, show, check)
+**For some machines, you need to append "python -m" before "pip".**
+-> python
+-> python --version
+-> pip --version | python -m pip --version
+-> pip install robotframework | python -m pip install robotframework
+-> pip show robotframework | python -m pip show robotframework
+-> pip check robotframework
+-> pip install --upgrade robotframework
+-> pip install --upgrade robotframework==2.9.2
+-> pip uninstall robotframework
+-> pip list
+-> pip install --upgrade pip
+-> pip install requests
+-> pip install robotframework-requests
+-> python -m pip install robotframework-jsonlibrary
+5. Add the following libraries in PyCharm. (File >Settings > Project > Project Interpreter > + button > Install Package )
+robotframework
+requests
+robotframework-requests
+jsonpath-rw
+jsonpath_rw_ext
+robotframework-jsonlibrary
+6. REST API Request Methods
+GET - get resource
+POST - create new resource
+PUT - updates existing resource
+DELETE - deletes resource
+7. STEPS
+a.) File > Settings > Editor > File Types > Robot Feature > Registered Patterns + button > "*.robot" > OK
+b.) Create New Directory (TestCases)
+c.) Inside the directory, create a New File (TC1_GET_Request.robot)
+d.) Write the code:
+*** Settings ***
+Library             RequestsLibrary
+
+*** Variables ***
+${base_url}         http://restapi.demoqa.com
+${city}             Delhi
+
+*** Test Cases ***
+Get_WeatherInfo
+    create session      MySession       ${base_url}
+    ${response} =       get request     MySession       /utilities/weather/city/${city}
+    log to console      ${response.status_code}
+    log to console      ${response.content}
+    log to console      ${response.headers}
+e.) Go to Terminal, type: robot TestCases\TC1_GET_Request.robot then Enter.
+f.) Check the ouptut.
+g.) Make some Validations:
+
+*** Settings ***
+Library             RequestsLibrary
+Library             Collections
+
+*** Variables ***
+${base_url}         http://restapi.demoqa.com
+${city}             Delhi
+
+*** Test Cases ***
+Get_WeatherInfo
+    create session      MySession       ${base_url}
+    ${response} =       get request     MySession       /utilities/weather/city/${city}
+    #log to console      ${response.status_code}
+    #log to console      ${response.content}
+    #log to console      ${response.headers}
+
+    #VALIDATIONS
+    ${status_code} =    convert to string  ${response.status_code}
+    should be equal     ${status_code}      200
+
+    ${body} =           convert to string   ${response.content}
+    should contain      ${body}             Delhi
+
+    ${ContentTypeValue} =   get from dictionary  ${response.headers}    Content-Type
+    should be equal         ${ContentTypeValue}  application/json
+h.) Right-click "report.html" >  Open in Browser > Chrome
+
+
+
+
+
+
+
